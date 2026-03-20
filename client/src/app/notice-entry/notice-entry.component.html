@@ -1,0 +1,768 @@
+<div class="container my-4">
+  <form #noticeForm="ngForm">
+    <!-- HEADER -->
+    <section class="mb-2">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 text-center">
+          <h2 class="fw-bold text-center mb-2">Submit a Death Notice</h2>
+          <div class="divider mx-auto mb-2"></div>
+          <p class="text-muted text-center mb-2">
+            Please complete the information below.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="mb-2">
+      <small class="primary-color">Progress bar</small>
+      <div class="progress">
+        <div class="progress-bar" [style.width.%]="formCompletionPercent"></div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <app-image-upload />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAME / DATES -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <div class="row d-none d-lg-flex mb-2">
+              <div class="col-lg-4">
+                <label class="fw-bold">Name</label>
+                <span class="text-danger">*</span>
+              </div>
+              <div class="col-lg-4">
+                <label class="fw-bold">Date of Birth</label>
+              </div>
+              <div class="col-lg-4">
+                <label class="fw-bold">Date of Death</label>
+                <span class="text-danger">*</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-lg-4 mb-3">
+                <label class="d-lg-none fw-bold">
+                  Name <span class="text-danger">*</span>
+                </label>
+                <input
+                  class="form-control"
+                  name="noticeName"
+                  #name="ngModel"
+                  [(ngModel)]="noticeEntryModel.name"
+                  required
+                  (change)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid': name.valid && (name.dirty || name.touched),
+                    'is-invalid': name.invalid && (name.dirty || name.touched)
+                  }"
+                />
+                <div
+                  *ngIf="name.invalid && (name.dirty || name.touched)"
+                  class="alert"
+                >
+                  <div *ngIf="name.hasError('required')" class="alert">
+                    <small>Name is required.</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-4 mb-3">
+                <label class="d-lg-none fw-bold">Date of Birth</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  name="birth_date"
+                  [(ngModel)]="noticeEntryModel.birth_date_str"
+                  (change)="saveNoticeData()"
+                />
+              </div>
+
+              <div class="col-12 col-lg-4 mb-3">
+                <label class="d-lg-none fw-bold">
+                  Date of Death <span class="text-danger">*</span>
+                </label>
+                <input
+                  class="form-control"
+                  type="date"
+                  name="death_date"
+                  required=""
+                  [(ngModel)]="noticeEntryModel.death_date_str"
+                  (change)="saveNoticeData()"
+                  #death_date="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-valid':
+                      death_date.valid &&
+                      (death_date.dirty || death_date.touched),
+                    'is-invalid':
+                      death_date.invalid &&
+                      (death_date.dirty || death_date.touched)
+                  }"
+                />
+                <div
+                  *ngIf="
+                    death_date.invalid &&
+                    (death_date.dirty || death_date.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="death_date.hasError('required')" class="alert">
+                    <small>Death date is required.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANNOUNCEMENT -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <h5 class="section-title mb-0">Enter Obituary</h5>
+            <textarea
+              class="form-control"
+              rows="15"
+              name="announcement"
+              #announcement="ngModel"
+              required
+              [(ngModel)]="noticeEntryModel.announcement"
+              (change)="saveNoticeData()"
+              [ngClass]="{
+                'is-valid':
+                  announcement.valid &&
+                  (announcement.dirty || announcement.touched),
+                'is-invalid':
+                  announcement.invalid &&
+                  (announcement.dirty || announcement.touched)
+              }"
+            ></textarea>
+
+            <div
+              *ngIf="
+                announcement.invalid &&
+                (announcement.dirty || announcement.touched)
+              "
+              class="alert"
+            >
+              <div *ngIf="announcement.hasError('required')" class="alert">
+                <small>announcement is required.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTS -->
+    <section class="mt-5">
+      <div class="card shadow-sm border-0 rounded-3 p-4">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-lg-8 mx-auto">
+            <div class="col-12 mb-1">
+              <h5 class="section-title mb-0">
+                Enter Events
+                <small class="text-muted ms-2"
+                  >(Wake, burial, repast, etc.)</small
+                >
+              </h5>
+            </div>
+
+            <div class="accordion" id="eventsAccordion">
+              <div
+                class="accordion-item mb-2"
+                *ngFor="let event of noticeEntryModel.events; let i = index"
+              >
+                <!-- Accordion Header -->
+                <h2 class="accordion-header" id="heading{{ i }}">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-bs-target]="'#collapse' + i"
+                  >
+                    <div
+                      class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                    >
+                      <div>
+                        <strong class="primary-color">Event {{ i + 1 }}</strong>
+                        <small class="ms-2 blue">(more)</small>
+                      </div>
+
+                      <!-- Event Summary -->
+                      <div class="text-muted small me-2">
+                        {{ event.type || "Type?" }}
+
+                        • {{ event.date_str || "Date?" }}
+
+                        • {{ event.location || "Location?" }}
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+
+                <!-- Accordion Body -->
+
+                <div
+                  [id]="'collapse' + i"
+                  class="accordion-collapse collapse"
+                  data-bs-parent="#eventsAccordion"
+                >
+                  <div class="accordion-body">
+                    <div class="d-flex justify-content-end mb-3">
+                      <button
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="removeEvent(i)"
+                        *ngIf="noticeEntryModel.events.length > 1"
+                      >
+                        Remove Event
+                      </button>
+                    </div>
+                    <div class="row g-3">
+                      <!-- TYPE -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong
+                            >Type <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.type"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventType{{ i }}"
+                        />
+                      </div>
+
+                      <!-- DATE -->
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">
+                          <strong
+                            >Date <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          [(ngModel)]="event.date_str"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventDate{{ i }}"
+                        />
+                      </div>
+
+                      <!-- TIME -->
+                      <div class="col-12 col-md-3">
+                        <label class="form-label">
+                          <strong
+                            >Time <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          type="time"
+                          class="form-control"
+                          [(ngModel)]="event.time"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventTime{{ i }}"
+                        />
+                      </div>
+
+                      <!-- LOCATION -->
+                      <div class="col-12">
+                        <label class="form-label">
+                          <strong
+                            >Location <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.location"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventLocation{{ i }}"
+                        />
+                      </div>
+
+                      <!-- ADDRESS -->
+                      <div class="col-12">
+                        <label class="form-label">
+                          <strong
+                            >Address <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.address"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventAddress{{ i }}"
+                        />
+                      </div>
+
+                      <!-- CITY -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong
+                            >City <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.city"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventCity{{ i }}"
+                        />
+                      </div>
+
+                      <!-- STATE -->
+                      <div class="col-12 col-md-6">
+                        <label class="form-label">
+                          <strong
+                            >State <span class="text-danger">*</span></strong
+                          >
+                        </label>
+                        <input
+                          class="form-control"
+                          [(ngModel)]="event.state"
+                          (change)="saveNoticeData()"
+                          required
+                          name="eventState{{ i }}"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ADD EVENT BUTTON -->
+
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-secondary mt-3"
+              (click)="addEvent()"
+            >
+              + Add Another Event
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTS -->
+    <section class="mt-5">
+      <div class="card shadow-sm border-0 mb-5">
+        <div class="card-body p-4">
+          <div class="row justify-content-center">
+            <div class="col-12 col-lg-8 mx-auto">
+              <div class="col-12 mb-1">
+                <h5 class="section-title mb-0">Enter Contacts</h5>
+              </div>
+
+              <div class="accordion" id="contactsAccordion">
+                <div
+                  class="accordion-item mb-2"
+                  *ngFor="
+                    let contact of noticeEntryModel.contacts;
+                    let i = index
+                  "
+                >
+                  <!-- Accordion Header -->
+                  <h2 class="accordion-header" id="contactheading{{ i }}">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#headingcollapse' + i"
+                    >
+                      <div
+                        class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                      >
+                        <div>
+                          <strong class="primary-color"
+                            >Contact {{ i + 1 }}</strong
+                          >
+                          <small class="ms-2 blue">(more)</small>
+                        </div>
+
+                        <!-- Event Summary -->
+                        <div class="text-muted small me-2">
+                          {{ contact.name || "Name?" }}
+
+                          • {{ contact.relationship || "Relationship?" }}
+
+                          • {{ contact.phone || "Phone?" }}
+                        </div>
+                      </div>
+                    </button>
+                  </h2>
+
+                  <!-- Accordion Body -->
+
+                  <div
+                    [id]="'headingcollapse' + i"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#contactsAccordion"
+                  >
+                    <div class="accordion-body">
+                      <div class="d-flex justify-content-end mb-3">
+                        <button
+                          class="btn btn-sm btn-outline-danger"
+                          (click)="removeContact(i)"
+                          *ngIf="noticeEntryModel.contacts.length > 1"
+                        >
+                          Remove Contact
+                        </button>
+                      </div>
+                      <div class="row g-3">
+                        <!-- Name -->
+                        <div class="col-12 col-md-6">
+                          <label class="form-label">
+                            <strong
+                              >Name <span class="text-danger">*</span></strong
+                            >
+                          </label>
+                          <input
+                            class="form-control"
+                            [(ngModel)]="contact.name"
+                            (change)="saveNoticeData()"
+                            required
+                            name="contactName{{ i }}"
+                          />
+                        </div>
+
+                        <!-- Relationship -->
+                        <div class="col-12 col-md-3">
+                          <label class="form-label">
+                            <strong>Relationship</strong>
+                          </label>
+                          <input
+                            class="form-control"
+                            [(ngModel)]="contact.relationship"
+                            (change)="saveNoticeData()"
+                            required
+                            name="contactRelationship{{ i }}"
+                          />
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="col-12 col-md-3">
+                          <label class="form-label">
+                            <strong
+                              >Phone <span class="text-danger">*</span></strong
+                            >
+                          </label>
+                          <input
+                            class="form-control"
+                            [(ngModel)]="contact.phone"
+                            (change)="saveNoticeData()"
+                            required
+                            name="contactPhone{{ i }}"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ADD CONTACT  BUTTON -->
+
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-secondary mt-3"
+                (click)="addContact()"
+              >
+                + Add Another Contact
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROUPS -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6" #groupContainer>
+            <h5 class="section-title mb-0 d-inline-block">Groups</h5>
+            <small class="text-muted ms-2 d-inline-block">(optional)</small>
+
+            <p class="small text-muted mt-1">
+              If the deceased was part of a group (school, work, family, etc.),
+              you may select or create a group to enable group-based searches.
+            </p>
+
+            <!-- SEARCH INPUT -->
+            <div class="mt-3 position-relative">
+              <input
+                type="text"
+                class="form-control"
+                name="groupSearch"
+                placeholder="Select or create groups..."
+                [value]="groupSearch"
+                (input)="onGroupSearch($event)"
+                (focus)="showGroupDropdown = true"
+                autocomplete="off"
+              />
+
+              <!-- DROPDOWN -->
+              <div
+                *ngIf="showGroupDropdown"
+                class="group-dropdown shadow-sm border rounded bg-white mt-1"
+              >
+                <!-- Existing Groups -->
+                <div
+                  *ngFor="let group of filteredGroups()"
+                  class="dropdown-item d-flex align-items-center"
+                >
+                  <input
+                    type="checkbox"
+                    class="form-check-input me-2"
+                    [checked]="isGroupSelected(group)"
+                    (change)="toggleGroup(group)"
+                  />
+
+                  {{ group.name }}
+                </div>
+
+                <!-- Create New Option -->
+                <div
+                  *ngIf="groupSearch?.trim() && !groupExists(groupSearch)"
+                  class="dropdown-item text-primary"
+                  (click)="createGroupFromSearch()"
+                  style="cursor: pointer"
+                >
+                  + Create "{{ groupSearch }}"
+                </div>
+              </div>
+            </div>
+
+            <!-- SELECTED BADGES -->
+            <div class="mt-3">
+              <span
+                *ngFor="let group of selectedGroups"
+                class="badge bg-primary me-2 mb-2"
+              >
+                {{ group.name }}
+                <span
+                  class="ms-2"
+                  style="cursor: pointer"
+                  (click)="removeGroup2(group._id)"
+                >
+                  ✕
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONAL INFORMATION -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6">
+            <!-- Section Title -->
+            <div class="mb-3">
+              <h5 class="section-title mb-0">Personal Information</h5>
+            </div>
+
+            <!-- Desktop Header Row (like Contact section) -->
+            <div class="row d-none d-md-flex mb-2">
+              <div class="col-md-6">
+                <label class="fw-bold">
+                  Your Name <span class="text-danger">*</span>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label class="fw-bold">
+                  Your Email <span class="text-danger">*</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Inputs Row -->
+            <div class="row">
+              <!-- Name -->
+              <div class="col-12 col-md-6 mb-3">
+                <label class="d-md-none fw-bold">
+                  Your Name <span class="text-danger">*</span>
+                </label>
+
+                <input
+                  class="form-control"
+                  [(ngModel)]="noticeEntryModel.buyer_name"
+                  name="buyer_name"
+                  type="text"
+                  required
+                  #buyer_name="ngModel"
+                  (change)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid':
+                      buyer_name.valid &&
+                      (buyer_name.dirty || buyer_name.touched),
+                    'is-invalid':
+                      buyer_name.invalid &&
+                      (buyer_name.dirty || buyer_name.touched)
+                  }"
+                />
+
+                <div
+                  *ngIf="
+                    buyer_name.invalid &&
+                    (buyer_name.dirty || buyer_name.touched)
+                  "
+                  class="text-danger mt-1"
+                >
+                  <small>Name is required.</small>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="col-12 col-md-6 mb-3">
+                <label class="d-md-none fw-bold">
+                  Your Email <span class="text-danger">*</span>
+                </label>
+
+                <input
+                  class="form-control"
+                  [(ngModel)]="noticeEntryModel.email"
+                  name="buyer_email"
+                  type="email"
+                  required
+                  #buyer_email="ngModel"
+                  (change)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid':
+                      buyer_email.valid &&
+                      (buyer_email.dirty || buyer_email.touched),
+                    'is-invalid':
+                      buyer_email.invalid &&
+                      (buyer_email.dirty || buyer_email.touched)
+                  }"
+                />
+
+                <div
+                  *ngIf="
+                    buyer_email.invalid &&
+                    (buyer_email.dirty || buyer_email.touched)
+                  "
+                  class="text-danger mt-1"
+                >
+                  <small>Email is required.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYMENT METHOD -->
+    <div class="card shadow-sm border-0 mb-5">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6">
+            <h5 class="section-title mb-0">Payment Method</h5>
+            <div class="form-check mt-3">
+              <input
+                class="form-check-input"
+                type="radio"
+                value="PayPal"
+                name="paymentMethod"
+                [(ngModel)]="paymentType"
+                (change)="onPaymentTypeChange(); saveNoticeData()"
+              />
+              <label class="form-check-label fw-bold fst-italic">
+                PayPal
+              </label>
+            </div>
+
+            <div class="form-check mt-2">
+              <input
+                class="form-check-input"
+                type="radio"
+                value="CreditCard"
+                name="paymentMethod"
+                [(ngModel)]="paymentType"
+                (change)="onPaymentTypeCreditCard(); saveNoticeData()"
+              />
+              <label class="form-check-label fw-bold"> Credit Card </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREDIT CARD -->
+    <ng-container *ngIf="paymentType === 'CreditCard'">
+      <div class="card shadow-sm border-0 mb-5">
+        <div class="card-body p-4">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+              <div class="mb-2">
+                <label class="fw-bold">Amount:</label>
+                <span class="fs-5 ms-2">
+                  {{ noticePrice | currency }}
+                </span>
+              </div>
+
+              <h6 class="fw-bold">
+                Enter Credit Card Info
+                <span class="text-danger">*</span>
+              </h6>
+
+              <div id="card-element" class="p-3 border rounded mt-2"></div>
+
+              <div class="mt-4 d-flex justify-content-center">
+                <div class="sticky-submit">
+                  <button
+                    class="btn btn-primary btn-lg"
+                    (click)="submitNotice()"
+                    [disabled]="
+                      !noticeForm.valid || !noticeEntryModel.imageFile
+                    "
+                  >
+                    Submit Death Notice
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- PAYPAL -->
+    <ng-container *ngIf="paymentType === 'PayPal'">
+      <div class="card shadow-sm border-0 mb-5">
+        <div class="card-body p-4">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-lg-4">
+              <app-paypal-button />
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </form>
+</div>

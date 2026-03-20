@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-md bg-body py-3 shadow-sm sticky-top">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand primary-color fw-semibold" routerLink="/">
+      LiberianDeparted.com
+    </a>
+
+    <!-- Mobile toggle -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links -->
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav mx-auto gap-md-2">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/notice-entry"
+            routerLinkActive="active"
+            title="Enter a death notice"
+          >
+            Submit Notice
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <button
+            type="button"
+            class="nav-link btn btn-link"
+            [class.active]="isEditNoticeActive()"
+            (click)="onEditNoticeClick()"
+          >
+            Change Notice
+          </button>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/enter-memoriam"
+            routerLinkActive="active"
+          >
+            Submit Memoriam
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <button
+            type="button"
+            class="nav-link btn btn-link"
+            [class.active]="isEditMemoriamActive()"
+            (click)="onEditMemoriamClick()"
+          >
+            Change Memoriam
+          </button>
+        </li>
+      </ul>
+
+      <!-- CTA -->
+      <!-- <button class="btn btn-primary">Button</button> -->
+
+      <button
+        type="button"
+        class="nav-link btn btn-link"
+        [class.active]="isContactUsActive()"
+        (click)="onContactUsClick()"
+      >
+        Contact Us
+      </button>
+    </div>
+  </div>
+</nav>

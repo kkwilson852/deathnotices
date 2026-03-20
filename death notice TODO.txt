@@ -1,0 +1,143 @@
+4242 4242 4242 4242
+
+Fix cors origin for production: ['http://localhost:4200', 'https://your-frontend.onrender.com']
+
+add death and birth to memoriam?
+
+remove logic to calculate if notice is 30 days old from getNoticeByNo on server and put elsewhere
+
+??? for contacts only display relationship in accordion header if it exists
+
+??? reduce image height to stop truncation
+
+xxx make edit notice acid
+
+modify for mobile phones
+
+xxx toast when group added
+
+remove hardcoded test notice number from enter-notice-modal
+
+??? enter memoriam -- submit button not centered
+
+*** order by death date, created_date
+
+*** in edit notice, event date not populate in UI
+
+*** in death notice, event date not populate in UI
+
+*** edit notice -- additional contact error, not saved to db
+
+*** After notice submitted, disable submit button.
+
+*** send email to memoriam's buyer_name
+
+uncomment persistToLocalStorage
+
+paypal
+
+reinstate stripe
+
+pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
+
+environment.pk_test -- change for production
+
+*** test catchError
+
+in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
+
+change hardcoded test buyer's email from my personal email
+
+for production change client-id in index.html:
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
+    <script src="https://www.sandbox.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script>
+ 
+
+*** validate enter notice when no image
+
+*** fixed width textarea
+
+*** notices editable for 30 days.
+
+*** Include buyer's name in letter
+
+*** reset pageNo
+
+*** pagination
+
+*** contact us
+
+*** footer
+
+*** date in Enter Notice disappears after submit
+
+*** fields validation
+
+*** search by group initial option not shown
+
+*** primary buttons
+
+*** implement toastr
+
+*** store operation to localStorage
+
+*** refactor notice.routes.js -- separate memoriam routes
+
+*** letter to buyer
+
+*** toast when edit notice and memoriam not found
+
+*** notice-entry refresh from localStorage -- name and event.time are not populated.
+
+*** implement groups in edit notice
+
+*** date-1 issue
+
+*** store data to localStorage
+
+*** header
+
+*** in memoriam
+
+*** search input
+
+*** refactor HomeComponent -- embed Notices and memoriams
+
+*** memoriam payment
+
+*** Align contacts in notice entry
+
+*** add email to notice entry
+
+*** sort available groups
+
+*** Implement accordions in Death Notice for Events and Contacts
+
+*** Add groups to Death Notice?
+
+*** event.date_str not copying to event.date;
+
+*** edit image slow to display files
+
+*** persist all pages to localstorage
+
+*** add (more) to contacts and events accordion headers in all pages
+
+*** progress bar edit notice
+
+*** progress bar label
+
+*** event.date not updating in database
+
+*** make sure contact is updating in database.
+
+*** change notice events to accodian
+
+*** change notice contacts to accodian
+
+*** add divider to headers
+
+*** uniform enter image width
+
+*** Add contact heading numbers
+

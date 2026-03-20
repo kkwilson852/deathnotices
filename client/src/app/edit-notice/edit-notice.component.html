@@ -1,0 +1,715 @@
+<div class="container my-2">
+  <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h3 class="">Edit Death Notice</h3>
+        <div class="divider mx-auto mb-2"></div>
+        <small>
+          Please edit the fields you wish to change. Fields marked with an
+          asterisk (<span class="text-danger fw-bold">*</span>) are required.
+        </small>
+      </div>
+    </div>
+
+    <div class="my-2">
+      <small class="primary-color">Progress bar</small>
+      <div class="progress">
+        <div class="progress-bar" [style.width.%]="formCompletionPercent"></div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-2">
+      <form
+        #noticeForm="ngForm"
+        class="d-flex flex-column justify-content-center"
+      >
+        <section class="mt-4" *ngIf="editNoticeModel.editImageMode">
+          <div class="card shadow-sm border-0 rounded-3 p-4">
+            <div class="row justify-content-center">
+              <div class="col-12 col-lg-8">
+                <app-image-upload [operation]="operation" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class=""
+          *ngIf="!editNoticeModel.editImageMode && editNoticeModel.imageId"
+        >
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="row justify-content-center">
+                <div
+                  class="col-12 d-flex flex-column justify-content-center align-items-center"
+                >
+                  <img
+                    class="img-fluid notice-image rounded shadow-sm mb-3"
+                    [src]="apiUrl + '/image/' + editNoticeModel.imageId"
+                    alt="Notice image"
+                    loading="lazy"
+                  />
+                  <h4>{{ editNoticeModel.name }}</h4>
+                  <h6>
+                    <ng-container
+                      *ngIf="editNoticeModel.birth_date_str; else noBirthDate"
+                    >
+                      {{
+                        editNoticeModel.birth_date_str
+                          | date : "MMMM d, yyyy" : "UTC"
+                      }}
+                      -
+                    </ng-container>
+
+                    <ng-template #noBirthDate>
+                      <span class="fw-bold">Died: </span>
+                    </ng-template>
+
+                    {{
+                      editNoticeModel.death_date_str
+                        | date : "MMMM d, yyyy" : "UTC"
+                    }}
+                  </h6>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-12 col-md-4 d-flex justify-content-center">
+                    <button
+                      class="btn btn-primary btn-secondary px-4 py-2"
+                      type="button"
+                      (click)="toggleEditImageMode()"
+                    >
+                      <span>Edit Image</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <div class="card shadow-sm border-0 rounded-3 p-4">
+            <div class="row d-flex justify-content-center">
+              <div class="col-12 col-lg-8">
+                <div class="row d-none d-lg-flex">
+                  <div class="col-6 col-lg-4">
+                    <label class="col-form-label fw-bold"
+                      >Name <span class="text-danger">*</span>
+                    </label>
+                  </div>
+                  <div class="col-6 col-lg-4">
+                    <label class="col-form-label fw-bold">Date of Birth</label>
+                  </div>
+                  <div class="col-6 col-lg-4">
+                    <label class="col-form-label fw-bold"
+                      >Date of Death <span class="text-danger">*</span></label
+                    >
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                    <label class="form-label d-lg-none me-2 fw-bold">
+                      Name: <span class="text-danger">*</span>
+                    </label>
+
+                    <div>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="noticeName"
+                        [(ngModel)]="editNoticeModel.name"
+                        required
+                        #nameCtrl="ngModel"
+                        (change)="saveNoticeData()"
+                        [ngClass]="{
+                          'is-valid':
+                            nameCtrl.valid &&
+                            (nameCtrl.dirty || nameCtrl.touched),
+                          'is-invalid':
+                            nameCtrl.invalid &&
+                            (nameCtrl.dirty || nameCtrl.touched)
+                        }"
+                      />
+
+                      <div
+                        *ngIf="
+                          nameCtrl.invalid &&
+                          (nameCtrl.dirty || nameCtrl.touched)
+                        "
+                        class="invalid-feedback d-block"
+                      >
+                        <small>Name is required.</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                    <label class="form-label d-lg-none me-2 fw-bold">
+                      Date of Birth:
+                    </label>
+
+                    <div>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="birth_date"
+                        [(ngModel)]="editNoticeModel.birth_date_str"
+                        #birth_date="ngModel"
+                        (change)="saveNoticeData()"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-4 mb-3 mb-lg-0">
+                    <label class="form-label d-lg-none me-2 fw-bold">
+                      Date of Death: <span class="text-danger">*</span>
+                    </label>
+
+                    <div>
+                      <input
+                        class="form-control"
+                        type="date"
+                        name="death_date"
+                        [(ngModel)]="editNoticeModel.death_date_str"
+                        required
+                        #death_date="ngModel"
+                        (change)="saveNoticeData()"
+                        [ngClass]="{
+                          'is-valid':
+                            death_date.valid &&
+                            (death_date.dirty || death_date.touched),
+                          'is-invalid':
+                            death_date.invalid &&
+                            (death_date.dirty || death_date.touched)
+                        }"
+                      />
+
+                      <div
+                        *ngIf="
+                          death_date.invalid &&
+                          (death_date.dirty || death_date.touched)
+                        "
+                        class="invalid-feedback d-block"
+                      >
+                        <small>Death date is required.</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <div class="card shadow-sm border-0 rounded-3 p-4">
+            <div class="d-flex justify-content-center">
+              <div class="col-12 col-md-8">
+                <h5 class="section-title">
+                  Edit Obituary: <span class="text-danger">*</span>
+                </h5>
+                <textarea
+                  class="form-control"
+                  rows="15"
+                  name="announcement"
+                  required=""
+                  [(ngModel)]="editNoticeModel.announcement"
+                  #announcement="ngModel"
+                  (selectionchange)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid':
+                      announcement.valid &&
+                      (announcement.dirty || announcement.touched),
+                    'is-invalid':
+                      announcement.invalid &&
+                      (announcement.dirty || announcement.touched)
+                  }"
+                ></textarea>
+
+                <div
+                  *ngIf="
+                    announcement.invalid &&
+                    (announcement.dirty || announcement.touched)
+                  "
+                  class="alert"
+                >
+                  <div *ngIf="announcement.hasError('required')" class="alert">
+                    <small>announcement is required.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EVENTS -->
+        <section class="mt-5">
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-8 mx-auto">
+                  <div class="col-12 mb-1">
+                    <h5 class="section-title mb-0">
+                      Edit Events
+                      <small class="text-muted ms-2"
+                        >(Wake, burial, repast, etc.)</small
+                      >
+                    </h5>
+                  </div>
+
+                  <div class="accordion" id="eventsAccordion">
+                    <div
+                      class="accordion-item mb-2"
+                      *ngFor="
+                        let event of editNoticeModel.events;
+                        let i = index
+                      "
+                    >
+                      <!-- Accordion Header -->
+                      <h2 class="accordion-header" id="heading{{ i }}">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          [attr.data-bs-target]="'#collapse' + i"
+                        >
+                          <div
+                            class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                          >
+                            <div>
+                              <strong class="primary-color"
+                                >Event {{ i + 1 }}</strong
+                              >
+                              <small class="ms-2 blue">(more)</small>
+                            </div>
+
+                            <!-- Event Summary -->
+                            <div class="text-muted small me-2">
+                              {{ event.type || "Type?" }}
+
+                              • {{ event.date_str || "Date?" }}
+
+                              • {{ event.location || "Location?" }}
+                            </div>
+                          </div>
+                        </button>
+                      </h2>
+
+                      <!-- Accordion Body -->
+
+                      <div
+                        [id]="'collapse' + i"
+                        class="accordion-collapse collapse"
+                        data-bs-parent="#eventsAccordion"
+                      >
+                        <div class="accordion-body">
+                          <div class="d-flex justify-content-end mb-3">
+                            <button
+                              class="btn btn-sm btn-outline-danger"
+                              (click)="removeEvent(i)"
+                              *ngIf="editNoticeModel.events.length > 1"
+                            >
+                              Remove Event
+                            </button>
+                          </div>
+                          <div class="row g-3">
+                            <!-- TYPE -->
+                            <div class="col-12 col-md-6">
+                              <label class="form-label">
+                                <strong
+                                  >Type
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="event.type"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventType{{ i }}"
+                              />
+                            </div>
+
+                            <!-- DATE -->
+                            <div class="col-12 col-md-3">
+                              <label class="form-label">
+                                <strong
+                                  >Date
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                type="date"
+                                class="form-control"
+                                [(ngModel)]="event.date_str"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventDate{{ i }}"
+                              />
+                            </div>
+
+                            <!-- TIME -->
+                            <div class="col-12 col-md-3">
+                              <label class="form-label">
+                                <strong
+                                  >Time
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                type="time"
+                                class="form-control"
+                                [(ngModel)]="event.time"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventTime{{ i }}"
+                              />
+                            </div>
+
+                            <!-- LOCATION -->
+                            <div class="col-12">
+                              <label class="form-label">
+                                <strong
+                                  >Location
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="event.location"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventLocation{{ i }}"
+                              />
+                            </div>
+
+                            <!-- ADDRESS -->
+                            <div class="col-12">
+                              <label class="form-label">
+                                <strong
+                                  >Address
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="event.address"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventAddress{{ i }}"
+                              />
+                            </div>
+
+                            <!-- CITY -->
+                            <div class="col-12 col-md-6">
+                              <label class="form-label">
+                                <strong
+                                  >City
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="event.city"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventCity{{ i }}"
+                              />
+                            </div>
+
+                            <!-- STATE -->
+                            <div class="col-12 col-md-6">
+                              <label class="form-label">
+                                <strong
+                                  >State
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="event.state"
+                                (change)="saveNoticeData()"
+                                required
+                                name="eventState{{ i }}"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ADD EVENT BUTTON -->
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-secondary mt-3"
+                    (click)="addEvent()"
+                  >
+                    + Add Another Event
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACTS -->
+        <section class="mt-5">
+          <div class="card shadow-sm border-05">
+            <div class="card-body p-4">
+              <div class="row d-flex justify-content-center">
+                <div class="col-12 col-lg-8 mx-auto">
+                  <div class="col-12 mb-1">
+                    <h5 class="section-title mb-0">Edit Contacts</h5>
+                  </div>
+
+                  <div class="accordion" id="contactsAccordion">
+                    <div
+                      class="accordion-item mb-2"
+                      *ngFor="
+                        let contact of editNoticeModel.contacts;
+                        let i = index
+                      "
+                    >
+                      <!-- Accordion Header -->
+                      <h2 class="accordion-header" id="contactheading{{ i }}">
+                        <button
+                          class="accordion-button collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          [attr.data-bs-target]="'#headingcollapse' + i"
+                        >
+                          <div
+                            class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                          >
+                            <div>
+                              <strong class="primary-color"
+                                >Contact {{ i + 1 }}</strong
+                              >
+                              <small class="ms-2 blue">(more)</small>
+                            </div>
+
+                            <!-- Event Summary -->
+                            <div class="text-muted small me-2">
+                              {{ contact.name || "Name?" }}
+
+                              • {{ contact.relationship || "Relationship?" }}
+
+                              • {{ contact.phone || "Phone?" }}
+                            </div>
+                          </div>
+                        </button>
+                      </h2>
+
+                      <!-- Accordion Body -->
+
+                      <div
+                        [id]="'headingcollapse' + i"
+                        class="accordion-collapse collapse"
+                        data-bs-parent="#contactsAccordion"
+                      >
+                        <div class="accordion-body">
+                          <div class="d-flex justify-content-end mb-3">
+                            <button
+                              class="btn btn-sm btn-outline-danger"
+                              (click)="removeContact(i)"
+                              *ngIf="editNoticeModel.contacts.length > 1"
+                            >
+                              Remove Contact
+                            </button>
+                          </div>
+                          <div class="row g-3">
+                            <!-- Name -->
+                            <div class="col-12 col-md-6">
+                              <label class="form-label">
+                                <strong
+                                  >Name
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="contact.name"
+                                (change)="saveNoticeData()"
+                                required
+                                name="contactName{{ i }}"
+                              />
+                            </div>
+
+                            <!-- Relationship -->
+                            <div class="col-12 col-md-3">
+                              <label class="form-label">
+                                <strong>Relationship</strong>
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="contact.relationship"
+                                (change)="saveNoticeData()"
+                                required
+                                name="contactRelationship{{ i }}"
+                              />
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-12 col-md-3">
+                              <label class="form-label">
+                                <strong
+                                  >Phone
+                                  <span class="text-danger">*</span></strong
+                                >
+                              </label>
+                              <input
+                                class="form-control"
+                                [(ngModel)]="contact.phone"
+                                (change)="saveNoticeData()"
+                                required
+                                name="contactPhone{{ i }}"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ADD CONTACT  BUTTON -->
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-secondary mt-3"
+                    (click)="addContact()"
+                  >
+                    + Add Another Contact
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <!-- GROUPS -->
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-6" #groupContainer>
+                  <h5 class="section-title mb-0 d-inline-block">Groups</h5>
+                  <small class="text-muted ms-2 d-inline-block"
+                    >(optional)</small
+                  >
+
+                  <p class="small text-muted mt-1">
+                    If the deceased was part of a group (school, work, family,
+                    etc.), you may select or create a group to enable
+                    group-based searches.
+                  </p>
+
+                  <!-- SEARCH INPUT -->
+                  <div class="mt-3 position-relative">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="groupSearch"
+                      placeholder="Select or create groups..."
+                      [(ngModel)]="groupSearch"
+                      (focus)="showGroupDropdown = true"
+                      autocomplete="off"
+                    />
+
+                    <!-- DROPDOWN -->
+                    <div
+                      *ngIf="showGroupDropdown"
+                      class="group-dropdown shadow-sm border rounded bg-white mt-1"
+                    >
+                      <!-- Existing Groups -->
+                      <div
+                        *ngFor="let group of filteredGroups()"
+                        class="dropdown-item d-flex align-items-center"
+                      >
+                        <input
+                          type="checkbox"
+                          class="form-check-input me-2"
+                          [checked]="isGroupSelected(group)"
+                          (change)="toggleGroup(group)"
+                        />
+
+                        {{ group.name }}
+                      </div>
+
+                      <!-- Create New Option -->
+                      <div
+                        *ngIf="groupSearch?.trim() && !groupExists(groupSearch)"
+                        class="dropdown-item text-primary"
+                        (click)="createGroupFromSearch()"
+                        style="cursor: pointer"
+                      >
+                        + Create "{{ groupSearch }}"
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SELECTED BADGES -->
+                  <div class="mt-3">
+                    <span
+                      *ngFor="let group of selectedGroups"
+                      class="badge bg-primary me-2 mb-2"
+                    >
+                      {{ group.name }}
+                      <span
+                        class="ms-2"
+                        style="cursor: pointer"
+                        (click)="removeGroup2(group._id)"
+                      >
+                        ✕
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mt-5">
+          <!-- <div class="card shadow-sm border-0 rounded-3 p-4"> -->
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-center">
+                <div class="col-12 col-md-8">
+                  <h5 class="section-title d-inline-block mb-0">
+                    Edit Additional Information:
+                  </h5>
+                  <textarea
+                    class="form-control"
+                    rows="15"
+                    name="additionalInformation"
+                    [(ngModel)]="editNoticeModel.additionalInformation"
+                    #additionalInformation="ngModel"
+                    (selectionchange)="saveNoticeData()"
+                    sel
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="row mt-5 d-flex justify-content-center">
+          <div class="col-12 col-md-4 d-flex justify-content-center">
+            <button
+              class="btn btn-primary px-4"
+              type="button"
+              (click)="submitNoticeEdits()"
+              [disabled]="!noticeForm.valid && !editNoticeModel.imageFile"
+            >
+              Submit Notice Edits
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
