@@ -1,5 +1,23 @@
 4242 4242 4242 4242
 
+Budget -- chatgpt, github, render, atlas
+
+temporarily remove pay button in notice-entry and memoriam-entry
+
+remove all testing data from production database
+
+accessibility
+
+*** why is relationship required in notice entry?
+
+??? to deploy, uncomment mongo_uri in .env
+
+eventually uncomment payment method and payment in notice-entry.html
+
+xxx make angular target port 3000 on server
+
+remove hardcoded email kkwilson82@gmail.com
+
 Fix cors origin for production: ['http://localhost:4200', 'https://your-frontend.onrender.com']
 
 add death and birth to memoriam?
@@ -12,7 +30,7 @@ remove logic to calculate if notice is 30 days old from getNoticeByNo on server 
 
 xxx make edit notice acid
 
-modify for mobile phones
+??? modify for mobile phones
 
 xxx toast when group added
 
@@ -35,22 +53,20 @@ remove hardcoded test notice number from enter-notice-modal
 uncomment persistToLocalStorage
 
 paypal
+for production change paypal client-id in index.html:
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
+    <script src="https://www.sandbox.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script>
 
 reinstate stripe
-
-pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
-
 environment.pk_test -- change for production
-
-*** test catchError
-
 in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
 
 change hardcoded test buyer's email from my personal email
 
-for production change client-id in index.html:
-  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
-    <script src="https://www.sandbox.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script>
+pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
+
+
+*** test catchError
  
 
 *** validate enter notice when no image

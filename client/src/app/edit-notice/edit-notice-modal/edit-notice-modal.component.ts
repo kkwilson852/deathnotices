@@ -21,7 +21,7 @@ export class EditNoticeModalComponent {
   private router = inject(Router);
   public editNoticeService = inject(EditNoticeService);
   private toastrUtils = inject(ToastUtils);
-  public noticeNumber: string = '7563-2475-1530';
+  public noticeNumber: string = '';
 
   public getNotice() {
     this.router.navigate(['/edit-notice', this.noticeNumber]);

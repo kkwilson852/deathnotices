@@ -35,17 +35,10 @@ input, select, textarea {
     border: 1px solid rgb(198, 130, 198) !important;
 }
 
-// .notice-image {
-//     width: 600px !important;
-//     height: 600px !important;
-//     object-fit: contain;
-//     border-radius: 6px;
-//   }
-
 .notice-image, .memoriam-image {
   width: 75%;
   max-width: 500px;
-  height: 600px !important;
+  aspect-ratio: 3 / 4;       /* portrait ratio */
   object-fit: contain;
   border-radius: 6px;
 
@@ -54,12 +47,7 @@ input, select, textarea {
   }
 }
 
-  // .memoriam-image {
-  //   width: 600px !important;
-  //   height: 600px !important;
-  //   object-fit: cover;
-  //   border-radius: 6px;
-  // }
+
 
   .announcement-width {
     width: 100% !important;

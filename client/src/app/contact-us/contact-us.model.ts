@@ -6,6 +6,6 @@ import { Injectable } from '@angular/core';
 export class ContactUsModel {
     _id!: string;
     name: string = '';
-    email: string = 'kkwilson852@gmail.com';
+    email: string = '';
     message: string = '';
 }

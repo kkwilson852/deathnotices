@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="card shadow-sm border-0 mb-5">
+    <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-8">
@@ -31,7 +31,7 @@
     </div>
 
     <!-- NAME / DATES -->
-    <div class="card shadow-sm border-0 mb-5">
+    <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-8">
@@ -128,7 +128,7 @@
     </div>
 
     <!-- ANNOUNCEMENT -->
-    <div class="card shadow-sm border-0 mb-5">
+    <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-8">
@@ -168,7 +168,7 @@
     </div>
 
     <!-- EVENTS -->
-    <section class="mt-5">
+    <section class="">
       <div class="card shadow-sm border-0 rounded-3 p-4">
         <div class="row d-flex justify-content-center">
           <div class="col-12 col-lg-8 mx-auto">
@@ -366,8 +366,8 @@
     </section>
 
     <!-- CONTACTS -->
-    <section class="mt-5">
-      <div class="card shadow-sm border-0 mb-5">
+    <section class="">
+      <div class="card shadow-sm border-0 mb-4">
         <div class="card-body p-4">
           <div class="row justify-content-center">
             <div class="col-12 col-lg-8 mx-auto">
@@ -456,7 +456,6 @@
                             class="form-control"
                             [(ngModel)]="contact.relationship"
                             (change)="saveNoticeData()"
-                            required
                             name="contactRelationship{{ i }}"
                           />
                         </div>
@@ -498,7 +497,7 @@
     </section>
 
     <!-- GROUPS -->
-    <div class="card shadow-sm border-0 mb-5">
+    <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="row justify-content-center">
           <div class="col-12 col-md-6" #groupContainer>
@@ -577,7 +576,7 @@
     </div>
 
     <!-- PERSONAL INFORMATION -->
-    <div class="card shadow-sm border-0 mb-5">
+    <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="row justify-content-center">
           <div class="col-12 col-md-6">
@@ -677,8 +676,9 @@
       </div>
     </div>
 
+    <!-- Uncomment when payment starts working -->
     <!-- PAYMENT METHOD -->
-    <div class="card shadow-sm border-0 mb-5">
+    <!-- <div class="card shadow-sm border-0 mb-4">
       <div class="card-body p-4">
         <div class="row justify-content-center">
           <div class="col-12 col-md-6">
@@ -711,15 +711,16 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- CREDIT CARD -->
     <ng-container *ngIf="paymentType === 'CreditCard'">
-      <div class="card shadow-sm border-0 mb-5">
+      <div class="card shadow-sm border-0 mb-4">
         <div class="card-body p-4">
           <div class="row justify-content-center">
             <div class="col-12 col-md-6">
-              <div class="mb-2">
+              <!-- Uncomment when payment starts working -->
+              <!-- <div class="mb-2">
                 <label class="fw-bold">Amount:</label>
                 <span class="fs-5 ms-2">
                   {{ noticePrice | currency }}
@@ -731,7 +732,7 @@
                 <span class="text-danger">*</span>
               </h6>
 
-              <div id="card-element" class="p-3 border rounded mt-2"></div>
+              <div id="card-element" class="p-3 border rounded mt-2"></div> -->
 
               <div class="mt-4 d-flex justify-content-center">
                 <div class="sticky-submit">
@@ -754,7 +755,7 @@
 
     <!-- PAYPAL -->
     <ng-container *ngIf="paymentType === 'PayPal'">
-      <div class="card shadow-sm border-0 mb-5">
+      <div class="card shadow-sm border-0 mb-4">
         <div class="card-body p-4">
           <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
