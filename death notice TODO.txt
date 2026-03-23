@@ -2,6 +2,8 @@
 
 Budget -- chatgpt, github, render, atlas
 
+memoriam display is distorted
+
 temporarily remove pay button in notice-entry and memoriam-entry
 
 remove all testing data from production database
