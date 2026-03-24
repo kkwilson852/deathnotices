@@ -12,11 +12,6 @@ server/node_modules
 dist
 .env
 
-death notice TODO.txt
-deathnotices.notices.json
-render.yaml
-todo.txt
-tree.txt
 
 # Compiled output
 /dist

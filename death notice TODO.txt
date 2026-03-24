@@ -2,9 +2,23 @@
 
 Budget -- chatgpt, github, render, atlas
 
-memoriam display is distorted
+create delete function to delete notices and memoriams
 
-temporarily remove pay button in notice-entry and memoriam-entry
+for production, modify wildcard:
+ app.use(cors({
+      credentials: true,
+      origin: '*'
+    }));
+
+*** gitignore not working for some files
+
+get stripe's certification images when implemented
+
+create DeathNotices@gmail.com
+
+*** memoriam display is distorted
+
+*** temporarily remove pay button in notice-entry and memoriam-entry
 
 remove all testing data from production database
 
@@ -22,7 +36,7 @@ remove hardcoded email kkwilson82@gmail.com
 
 Fix cors origin for production: ['http://localhost:4200', 'https://your-frontend.onrender.com']
 
-add death and birth to memoriam?
+??? add death and birth to memoriam?
 
 remove logic to calculate if notice is 30 days old from getNoticeByNo on server and put elsewhere
 
@@ -36,7 +50,7 @@ xxx make edit notice acid
 
 xxx toast when group added
 
-remove hardcoded test notice number from enter-notice-modal
+*** remove hardcoded test notice number from enter-notice-modal
 
 ??? enter memoriam -- submit button not centered
 

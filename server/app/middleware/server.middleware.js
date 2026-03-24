@@ -3,7 +3,6 @@ console.log("Loading server middleware...")
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-// const path = require('path');
 const express = require('express');
 
 module.exports = (app) => {
