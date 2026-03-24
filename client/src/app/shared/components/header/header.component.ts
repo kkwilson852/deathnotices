@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -49,6 +49,19 @@ export class HeaderComponent {
 
   isContactUsActive(): boolean {
     return this.currentUrl.startsWith('/contact-us');
+  }
+
+  isManageOpen = false;
+
+  toggleManage(event: Event) {
+    event.preventDefault();
+    event.stopPropagation(); // ✅ prevents immediate close
+    this.isManageOpen = !this.isManageOpen;
+  }
+
+  @HostListener('document:click')
+  closeDropdown() {
+    this.isManageOpen = false;
   }
 }
 

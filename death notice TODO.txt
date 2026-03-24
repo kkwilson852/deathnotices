@@ -4,6 +4,10 @@ Budget -- chatgpt, github, render, atlas
 
 create delete function to delete notices and memoriams
 
+add create date to in memory
+
+implement 30 day edit restriction for memoriams
+
 for production, modify wildcard:
  app.use(cors({
       credentials: true,

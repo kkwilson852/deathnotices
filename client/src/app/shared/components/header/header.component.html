@@ -24,55 +24,62 @@
         <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="/"
+            routerLink="/dearly-departed"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
+            title="Dearly Departed"
           >
-            Home
+            Dearly Departed
           </a>
         </li>
 
         <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="/notice-entry"
+            routerLink="/in-memory"
             routerLinkActive="active"
-            title="Enter a death notice"
+            title="In Memory"
           >
-            Submit Death Notice
+            In Memory
           </a>
         </li>
 
-        <li class="nav-item">
-          <button
-            type="button"
-            class="nav-link btn btn-link"
-            [class.active]="isEditNoticeActive()"
-            (click)="onEditNoticeClick()"
-          >
-            Change Death Notice
-          </button>
-        </li>
-
-        <li class="nav-item">
+        <li class="nav-item dropdown" [class.show]="isManageOpen">
           <a
-            class="nav-link"
-            routerLink="/enter-memoriam"
-            routerLinkActive="active"
+            class="nav-link dropdown-toggle"
+            href="#"
+            (click)="toggleManage($event)"
+            [attr.aria-expanded]="isManageOpen"
           >
-            Submit Memoriam
+            Manage Notices
           </a>
-        </li>
 
-        <li class="nav-item">
-          <button
-            type="button"
-            class="nav-link btn btn-link"
-            [class.active]="isEditMemoriamActive()"
-            (click)="onEditMemoriamClick()"
-          >
-            Change Memoriam
-          </button>
+          <ul class="dropdown-menu" [class.show]="isManageOpen">
+            <li>
+              <a class="dropdown-item" routerLink="/notice-entry">
+                Submit Death Notice
+              </a>
+            </li>
+
+            <li>
+              <button class="dropdown-item" (click)="onEditNoticeClick()">
+                Change Death Notice
+              </button>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+
+            <li>
+              <a class="dropdown-item" routerLink="/enter-memoriam">
+                Submit Memoriam
+              </a>
+            </li>
+
+            <li>
+              <button class="dropdown-item" (click)="onEditMemoriamClick()">
+                Change Memoriam
+              </button>
+            </li>
+          </ul>
         </li>
       </ul>
 
