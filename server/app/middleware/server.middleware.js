@@ -8,14 +8,16 @@ const express = require('express');
 module.exports = (app) => {
     app.use(express.json());
     app.use(morgan('common'));
-    app.use(cors({
-      credentials: true,
-      origin: '*'
-    }));
+
     // app.use(cors({
     //   credentials: true,
-    //   origin: ['http://localhost:4200']
+    //   origin: '*'
     // }));
+    
+    app.use(cors({
+      credentials: true,
+      origin: ['http://localhost:4200', 'https://deathnotices.onrender.com']
+    }));
     app.use(helmet({
         contentSecurityPolicy: false,
       }));

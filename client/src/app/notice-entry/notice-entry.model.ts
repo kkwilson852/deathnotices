@@ -26,6 +26,7 @@ export class NoticeEntryModel {
     email: string = '';
     public pageSize = 12;
     notice_no = '';
+
     contacts: Contact[] = [
         {
             name: '',
@@ -54,4 +55,5 @@ export class NoticeEntryModel {
     ];
 
     additionalInformation: string = '';
+    createdAt: Date = null as any;
 }

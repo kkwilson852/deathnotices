@@ -120,7 +120,7 @@ export class MemoriamEditService {
           console.log('error', error)
           this.toastrUtils.show(
             'error',
-            error.message || 'An error occurred while fetching memoriam.',
+            error.error.message || 'An error occurred while fetching memoriam.',
             'Get Memoriam Error'
           );
           throw error;

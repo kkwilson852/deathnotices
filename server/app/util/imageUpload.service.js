@@ -11,7 +11,8 @@ exports.uploadNoticeImage = async (file) => {
 
   const compressedBuffer = await sharp(file.buffer)
     .rotate()
-    .resize({ width: 1200, withoutEnlargement: true })
+    // .resize({ width: 1200, withoutEnlargement: true })
+    .resize(1200, 1600, { fit: 'cover' })
     .jpeg({ quality: 80, mozjpeg: true })
     .toBuffer();
 

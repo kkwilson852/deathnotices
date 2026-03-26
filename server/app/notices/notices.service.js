@@ -11,6 +11,9 @@ const { getGridFSBucket } = require("../util/gridfs");
 const { generateRandomNo } = require("../util/generateRandomNo");
 const nodemailer = require("../util/email/nodemailer.service");
 
+// OPTIONAL: if using GridFS
+const { GridFSBucket } = require('mongodb');
+
 exports.enterNotice = async (req, res) => {
   try {
     console.log("notices.service.enterNotice called...");
@@ -34,7 +37,8 @@ exports.enterNotice = async (req, res) => {
     // STEP 1: Compress image
     const compressedBuffer = await sharp(req.file.buffer)
       .rotate()
-      .resize({ width: 1200, withoutEnlargement: true })
+      // .resize({ width: 1200, withoutEnlargement: true })
+      .resize(1200, 1600, { fit: 'cover' })
       .jpeg({ quality: 80, mozjpeg: true })
       .toBuffer();
 
@@ -441,4 +445,59 @@ const compileNoticeData = async (noticeData, imageId) => {
   }
 
   return notice;
+};
+
+
+exports.deleteNoticeCascade = async (req, res) => {
+  const { noticeId } = req.params;
+
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    // 1. Get the notice
+    const notice = await Notices.findById(noticeId).session(session);
+
+    if (!notice) {
+      await session.abortTransaction();
+      return res.status(404).json({ message: 'Notice not found' });
+    }
+
+    // 2. Delete child documents
+    await Contacts.deleteMany(
+      { _id: { $in: notice.contacts } },
+      { session }
+    );
+
+    await Events.deleteMany(
+      { _id: { $in: notice.events } },
+      { session }
+    );
+
+    // await Groups.deleteMany(
+    //   { _id: { $in: notice.groups } },
+    //   { session }
+    // );
+
+    // 3. Delete image (if exists)
+    if (notice.imageId) {
+      const bucket = new GridFSBucket(mongoose.connection.db);
+      await bucket.delete(new mongoose.Types.ObjectId(notice.imageId));
+    }
+
+    // 4. Delete the notice itself
+    await Notices.findByIdAndDelete(noticeId).session(session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    res.json({ message: 'Notice and all dependencies deleted successfully' });
+
+  } catch (err) {
+    await session.abortTransaction();
+    session.endSession();
+
+    console.error(err);
+    res.status(500).json({ message: 'Delete failed', error: err.message });
+  }
 };

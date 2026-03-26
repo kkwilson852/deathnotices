@@ -1,12 +1,20 @@
 4242 4242 4242 4242
 
-Budget -- chatgpt, github, render, atlas
+Budget -- chatgpt, github, render, atlas, immg app
 
-create delete function to delete notices and memoriams
+make dates in events MMMM d, yyyy
 
-add create date to in memory
+*** create delete function to delete notices and memoriams
 
-implement 30 day edit restriction for memoriams
+test error.message vs. error.error.message from server
+
+remove all testing data from production database
+
+accessibility
+
+Fix cors origin for production: ['http://localhost:4200', 'https://your-frontend.onrender.com']
+
+Do same on Atlas
 
 for production, modify wildcard:
  app.use(cors({
@@ -14,35 +22,49 @@ for production, modify wildcard:
       origin: '*'
     }));
 
-*** gitignore not working for some files
 
 get stripe's certification images when implemented
 
-create DeathNotices@gmail.com
+create DeathNotices@gmail.com and remove hardcoded email kkwilson82@gmail.com
+
+eventually uncomment payment method and payment in notice-entry.html
+
+remove logic to calculate if notice is 30 days old from getNoticeByNo on server and put elsewhere
+
+uncomment persistToLocalStorage
+
+paypal
+for production change paypal client-id in index.html:
+  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
+    <script src="https://www.sandbox.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script>
+
+reinstate stripe
+environment.pk_test -- change for production
+
+in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
+
+change hardcoded test buyer's email from my personal email
+
+pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
+
+
+*** add create date to in memory
+
+*** implement 30 day edit restriction for memoriams
+
+*** gitignore not working for some files
 
 *** memoriam display is distorted
 
 *** temporarily remove pay button in notice-entry and memoriam-entry
 
-remove all testing data from production database
-
-accessibility
-
 *** why is relationship required in notice entry?
 
 ??? to deploy, uncomment mongo_uri in .env
 
-eventually uncomment payment method and payment in notice-entry.html
-
 xxx make angular target port 3000 on server
 
-remove hardcoded email kkwilson82@gmail.com
-
-Fix cors origin for production: ['http://localhost:4200', 'https://your-frontend.onrender.com']
-
 ??? add death and birth to memoriam?
-
-remove logic to calculate if notice is 30 days old from getNoticeByNo on server and put elsewhere
 
 ??? for contacts only display relationship in accordion header if it exists
 
@@ -69,22 +91,6 @@ xxx toast when group added
 *** After notice submitted, disable submit button.
 
 *** send email to memoriam's buyer_name
-
-uncomment persistToLocalStorage
-
-paypal
-for production change paypal client-id in index.html:
-  <!-- <script src="https://www.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script> -->
-    <script src="https://www.sandbox.paypal.com/sdk/js?client-id=AZq7vhi1aBDDHr8A384pfdCSr1bbtHrmllzzPp-QbO06t0bfMI1agjpfnvrm0rkt0TCWeJtbfKcMKxjK"></script>
-
-reinstate stripe
-environment.pk_test -- change for production
-in noteEntryTemplate Submit Notice button, remember to change completeNoticeSubmission to submitNotice function.
-
-change hardcoded test buyer's email from my personal email
-
-pageNo not changed when group changes (p3 -> cwa selected -> all deceased selected --> p1 should become active)
-
 
 *** test catchError
  

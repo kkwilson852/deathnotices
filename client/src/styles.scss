@@ -35,15 +35,22 @@ input, select, textarea {
     border: 1px solid rgb(198, 130, 198) !important;
 }
 
-.notice-image, .memoriam-image {
-  width: 75%;
-  max-width: 500px;
-  aspect-ratio: 3 / 4;       /* portrait ratio */
-  object-fit: contain;
-  border-radius: 6px;
+.notice-image,
+.memoriam-image {
+  display: block;           /* important */
+  width: 75% !important;    /* force uniform width */
+  height: auto;
 
-  @media screen and (min-width: 768px) {
-    width: 50%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+
+  border-radius: 6px;
+}
+
+@media screen and (min-width: 768px) {
+  .notice-image,
+  .memoriam-image {
+    width: 50% !important;
   }
 }
 

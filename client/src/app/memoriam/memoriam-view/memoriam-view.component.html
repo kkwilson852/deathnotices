@@ -23,7 +23,13 @@
               loading="lazy"
             />
 
-            <h4>{{ memoriam.name }}</h4>
+            <h4 class="mt-0">{{ memoriam.name }}</h4>
+            <h6
+              class="text-muted card-subtitle mb-2 text-center"
+              style="font-size: 15px"
+            >
+              {{ memoriam.createdAt | date : "MMMM d, yyyy" }}
+            </h6>
           </div>
         </div>
       </div>

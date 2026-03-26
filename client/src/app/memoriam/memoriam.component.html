@@ -36,6 +36,12 @@
         <h4 class="card-title text-center" style="font-size: 14.7px">
           <strong>{{ memoriam.name }}</strong>
         </h4>
+        <h6
+          class="text-muted card-subtitle mb-2 text-center"
+          style="font-size: 15px"
+        >
+          {{ memoriam.createdAt | date : "MMMM d, yyyy" }}
+        </h6>
       </div>
     </div>
   </div>
