@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
   selector: '[appAutoResizeTextarea]',
@@ -12,13 +12,13 @@ export class AutoResizeTextareaDirective {
 
   }
 
-  ngAfterViewInit() {
-    // Auto-resize once binding is applied
-    this.resize();
-  }
-
   resize() {
     this.textarea.style.height = 'auto';
     this.textarea.style.height = this.textarea.scrollHeight + 'px';
+  }
+
+
+  ngAfterViewInit() {
+    setTimeout(() => this.resize(), 0);
   }
 }

@@ -1,0 +1,10 @@
+TESTING
+DEATH NOTICE:
+
+*** textarea not expanded based on content.
+
+Death Notice additional information not centered.
+
+*** Event's date not displayed
+
+images truncated at top

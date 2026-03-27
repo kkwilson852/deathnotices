@@ -8,6 +8,7 @@
     </div>
   </section>
 
+  <!-- IMAGE -->
   <section class="">
     <div class="card shadow-sm border-0">
       <div class="card-body p-4">
@@ -43,6 +44,7 @@
     </div>
   </section>
 
+  <!-- ANNOUNCEMENT -->
   <section class="mt-4">
     <div class="card shadow-sm border-0">
       <div class="card-body p-4">
@@ -57,7 +59,7 @@
               readonly
               appAutoResizeTextarea
               name="announcement"
-              [value]="notice?.announcement"
+              [(ngModel)]="notice!.announcement"
               style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
             ></textarea>
           </div>
@@ -95,7 +97,7 @@
                     >
                       <div>
                         <strong class="primary-color">Event {{ i + 1 }}</strong>
-                        <small class="ms-2 blue">(more)</small>
+                        <small class="ms-2 blue">(see more)</small>
                       </div>
 
                       <!-- Event Summary -->
@@ -230,7 +232,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-12 col-lg-8 mx-auto">
             <div class="col-12 mb-1">
-              <h5 class="section-title mb-0">Edit Contacts</h5>
+              <h5 class="section-title mb-0">Contacts</h5>
               <div></div>
             </div>
 
@@ -254,7 +256,7 @@
                         <strong class="primary-color"
                           >Contact {{ i + 1 }}
                         </strong>
-                        <small class="ms-2 blue">(more)</small>
+                        <small class="ms-2 blue">(see more)</small>
                       </div>
 
                       <!-- Event Summary -->
@@ -327,6 +329,7 @@
     </div>
   </section>
 
+  <!-- ADDITIONAL INFO -->
   <section class="mt-4">
     <div class="card shadow-sm border-0">
       <div class="card-body p-4">
@@ -343,7 +346,7 @@
               readonly
               appAutoResizeTextarea
               name="additionalInformation"
-              [value]="notice?.additionalInformation"
+              [(ngModel)]="notice!.additionalInformation"
               style="border: 2px solid #ddd; overflow: hidden; font-size: 16px"
             ></textarea>
           </div>

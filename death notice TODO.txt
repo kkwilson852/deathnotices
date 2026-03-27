@@ -163,7 +163,7 @@ xxx toast when group added
 
 *** persist all pages to localstorage
 
-*** add (more) to contacts and events accordion headers in all pages
+*** add (see more) to contacts and events accordion headers in all pages
 
 *** progress bar edit notice
 
