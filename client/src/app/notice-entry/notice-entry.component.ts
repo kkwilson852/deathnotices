@@ -201,6 +201,7 @@ export class NoticeEntryComponent {
 
     this.noticeEntryModel.events = this.noticeEntryModel.events.map(event => ({
       ...event,
+      date: event.date_str ? new Date(event.date_str) : null,
       time: event.time && event.time !== '' ? event.time : null
     }));
 

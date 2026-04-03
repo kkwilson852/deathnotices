@@ -3,8 +3,31 @@ DEATH NOTICE:
 
 *** textarea not expanded based on content.
 
-Death Notice additional information not centered.
+*** Death Notice additional information not centered.
 
 *** Event's date not displayed
 
 images truncated at top
+
+wreath around announcement
+
+*** Change event label to event name
+
+
+
+NOTICE ENTrY:
+*** Event's date not displayed completely
+
+*** Event date not display after entered
+
+After notice submitted, scroll to top to toastr doesn't occur
+
+
+EDIT NOTICE
+*** Contact name not updating
+
+
+MEMOrIAM VIEW:
+*** textarea not expanded
+
+create skeleton 

@@ -108,29 +108,42 @@ exports.editNoticeService = async ({ noticeData, file }) => {
   }
 };
 
+
 const createContacts = async (contacts) => {
-  // 1️⃣ Separate existing vs new contacts
-  const existingContactIds = contacts.filter((c) => c._id).map((c) => c._id);
 
-  const newContacts = contacts
-    .filter((c) => !c._id)
-    .map((c) => ({
-      name: c.name,
-      relationship: c.relationship,
-      phone: c.phone,
-    }));
+  const operations = contacts.map(c => {
+    if (c._id) {
+      return {
+        updateOne: {
+          filter: { _id: c._id },
+          update: {
+            $set: {
+              name: c.name,
+              relationship: c.relationship,
+              phone: c.phone
+            }
+          }
+        }
+      };
+    } else {
+      return {
+        insertOne: {
+          document: {
+            name: c.name,
+              relationship: c.relationship,
+              phone: c.phone
+          }
+        }
+      };
+    }
+  });
 
-  // 2️⃣ Insert only new contacts (if any)
-  let newContactDocs = [];
-  if (newContacts.length > 0) {
-    newContactDocs = await Contacts.insertMany(newContacts);
-  }
+  const result = await Contacts.bulkWrite(operations);
 
-  // 3️⃣ Collect newly created IDs
-  const newContactIds = newContactDocs.map((c) => c._id);
+  const insertedIds = Object.values(result.insertedIds || {});
+  const updatedIds = contacts.filter(c => c._id).map(c => c._id);
 
-  // 4️⃣ Return all contact IDs
-  return [...existingContactIds, ...newContactIds];
+  return [...updatedIds, ...insertedIds];
 };
 
 const createEvents = async (events) => {

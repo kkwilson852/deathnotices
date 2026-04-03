@@ -8,6 +8,7 @@ import { DeathNoticeGalleryService } from '../death-notice-gallery/death-notice-
 import { FormsModule } from '@angular/forms';
 import { FormatDateTimeUtils } from '../shared/utils/formatDateTimeUtil';
 import { DeathNoticeService } from './death-notice.service';
+import { TruncatePipe } from '../shared/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-death-notice',
@@ -17,7 +18,8 @@ import { DeathNoticeService } from './death-notice.service';
     CommonModule,
     FormsModule,
     AutoResizeTextareaDirective,
-    ToAmPmPipe
+    ToAmPmPipe,
+    TruncatePipe
   ],
   templateUrl: './death-notice.component.html',
   styleUrl: './death-notice.component.scss'

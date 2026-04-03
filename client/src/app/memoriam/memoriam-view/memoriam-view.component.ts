@@ -1,14 +1,17 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MemoriamViewService } from './memoriam-view.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AutoResizeTextareaDirective } from '../../shared/directives/auto-resize-textarea.directive';
 
 @Component({
   selector: 'app-memoriam-view',
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    AutoResizeTextareaDirective,
   ],
   templateUrl: './memoriam-view.component.html',
   styleUrl: './memoriam-view.component.scss'
@@ -33,4 +36,6 @@ export class MemoriamViewComponent {
     console.log("Memoriam ID:", memoriamId);
     this.memoriamViewService.getMemoriam(memoriamId);
   }
+
+
 }

@@ -309,6 +309,8 @@ exports.getNoticeById = async (req, res) => {
       .populate("groups")
       .exec();
 
+    console.log("getNoticeById notice retrieved:", notice);
+
     if (!notice) {
       return res.status(404).json({ message: "Notice not found" });
     }

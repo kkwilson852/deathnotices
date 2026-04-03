@@ -9,35 +9,32 @@
   </section>
 
   <!-- IMAGE -->
-  <section class="">
+  <section>
     <div class="card shadow-sm border-0">
-      <div class="card-body p-4">
-        <div class="row">
-          <div
-            class="col-12 d-flex flex-column justify-content-center align-items-center"
-          >
-            <img
-              *ngIf="imageUrl"
-              class="img-fluid notice-image mt-4"
-              [src]="imageUrl"
-              alt="Notice image"
-              loading="lazy"
-            />
+      <div class="card-body p-0 position-relative">
+        <div class="d-flex flex-column align-items-center text-center pt-3">
+          <h4 class="mt-2 mb-1">{{ notice?.name }}</h4>
 
-            <h4 class="mt-2">{{ notice?.name }}</h4>
+          <h6 class="mb-0">
+            {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }} -
+            {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
+          </h6>
+        </div>
+        <!-- FRAME IMAGE (real element) -->
+        <img src="/assets/img/wreath-frame.png" class="wreath-bg" alt="" />
 
-            <h6>
-              <ng-container *ngIf="notice?.birth_date; else noBirthDate">
-                {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }}
-                -
-              </ng-container>
+        <!-- <img src="/assets/img/wreath3.jpg" class="wreath-bg" alt="" /> -->
 
-              <ng-template #noBirthDate>
-                <span class="fw-bold">Died: </span>
-              </ng-template>
-
-              {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
-            </h6>
+        <!-- CONTENT -->
+        <div class="content p-4">
+          <div class="row">
+            <div class="col-12 d-flex flex-column align-items-center">
+              <img
+                *ngIf="imageUrl"
+                class="img-fluid notice-image"
+                [src]="imageUrl"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -50,7 +47,7 @@
       <div class="card-body p-4">
         <div class="row d-flex">
           <div
-            class="col-12 d-flex flex-column justify-content-center align-items-center"
+            class="col-12 d-flex flex-column justify-content-center align-items-center wreath-container"
           >
             <h5 class="">Announcement</h5>
             <textarea
@@ -93,20 +90,22 @@
                     [attr.data-bs-target]="'#collapse' + i"
                   >
                     <div
-                      class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                      class="w-100 d-flex flex-column flex-md-row align-items-md-center justify-content-start"
                     >
-                      <div>
-                        <strong class="primary-color">Event {{ i + 1 }}</strong>
-                        <small class="ms-2 blue">(see more)</small>
+                      <div class="fw-semibold primary-color text-capitalize">
+                        {{ event.type | truncate : 15 }}
                       </div>
 
-                      <!-- Event Summary -->
-                      <div class="text-muted small me-2">
-                        {{ event.type || "Type?" }}
-
-                        • {{ event.date_str || "Date?" }}
-
-                        • {{ event.location || "Location?" }}
+                      <div
+                        class="text-muted small d-flex align-items-center mt-1 mt-md-0 text-md-end ms-2"
+                      >
+                        <span>
+                          <span class="mx-2">•</span>
+                          {{ event.date_str || "Date?" }}
+                          <span class="mx-2">•</span>
+                          {{ event.location | truncate : 20 }}
+                        </span>
+                        <small class="ms-2 blue">(see more)</small>
                       </div>
                     </div>
                   </button>
@@ -250,22 +249,20 @@
                     [attr.data-bs-target]="'#headingcollapse' + i"
                   >
                     <div
-                      class="w-100 d-flex flex-column flex-md-row justify-content-between"
+                      class="w-100 d-flex flex-column flex-md-row align-items-md-center justify-content-start"
                     >
-                      <div>
-                        <strong class="primary-color"
-                          >Contact {{ i + 1 }}
-                        </strong>
-                        <small class="ms-2 blue">(see more)</small>
+                      <div class="fw-semibold primary-color text-capitalize">
+                        {{ contact.name | truncate : 15 }}
                       </div>
 
-                      <!-- Event Summary -->
-                      <div class="text-muted small me-2">
-                        {{ contact.name || "Name?" }}
-
-                        • {{ contact.relationship || "Relationship?" }}
-
-                        • {{ contact.phone || "Phone?" }}
+                      <div
+                        class="text-muted small d-flex align-items-center mt-1 mt-md-0 text-md-end ms-2"
+                      >
+                        <span>
+                          <span class="mx-2">•</span>
+                          {{ contact.phone }}
+                        </span>
+                        <small class="ms-2 blue">(see more)</small>
                       </div>
                     </div>
                   </button>
