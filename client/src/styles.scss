@@ -112,32 +112,32 @@ input, select, textarea {
 
   @media (min-width: 360px) {
     .notice-image {
-      width: 45%;
+      width: 45% !important;
       margin-top: 3.2rem !important;
     }
   }
 
   @media (min-width: 576px) {
     .notice-image {
-      width: 42%;
+      width: 42% !important;
     }
   }
 
   @media (min-width: 768px) {
     .notice-image{
-      width: 39%;
+      width: 39% !important;
     }
   }
 
   @media (min-width: 992px) {
     .notice-image{
-      width: 39%;
+      width: 39% !important;
     }
   }
 
   @media (min-width: 1200px) {
     .notice-image{
-      width: 45%;
+      width: 45% !important;
     }
   }
 
