@@ -11,31 +11,28 @@
   <!-- IMAGE -->
   <section>
     <div class="card shadow-sm border-0">
-      <div class="card-body p-0 position-relative">
-        <div class="d-flex flex-column align-items-center text-center pt-3">
-          <h4 class="mt-2 mb-1">{{ notice?.name }}</h4>
+      <!-- HEADER (completely OUTSIDE wreath system) -->
+      <div class="notice-header">
+        <h4>{{ notice?.name }}</h4>
+        <h6>
+          {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }} -
+          {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
+        </h6>
+      </div>
 
-          <h6 class="mb-0">
-            {{ notice?.birth_date | date : "MMMM d, yyyy" : "UTC" }} -
-            {{ notice?.death_date | date : "MMMM d, yyyy" : "UTC" }}
-          </h6>
-        </div>
-        <!-- FRAME IMAGE (real element) -->
+      <!-- FRAME AREA -->
+      <div class="notice-frame">
+        <!-- WREATH -->
         <img src="/assets/img/wreath-frame.png" class="wreath-bg" alt="" />
 
-        <!-- <img src="/assets/img/wreath3.jpg" class="wreath-bg" alt="" /> -->
-
-        <!-- CONTENT -->
-        <div class="content p-4">
-          <div class="row">
-            <div class="col-12 d-flex flex-column align-items-center">
-              <img
-                *ngIf="imageUrl"
-                class="img-fluid notice-image"
-                [src]="imageUrl"
-              />
-            </div>
-          </div>
+        <!-- SAFE CONTENT ZONE -->
+        <div class="content">
+          <img
+            *ngIf="imageUrl"
+            class="notice-image"
+            [src]="imageUrl"
+            alt="Notice image"
+          />
         </div>
       </div>
     </div>

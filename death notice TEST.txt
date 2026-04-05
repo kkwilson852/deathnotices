@@ -9,7 +9,7 @@ DEATH NOTICE:
 
 images truncated at top
 
-wreath around announcement
+*** wreath around announcement
 
 *** Change event label to event name
 
