@@ -20,7 +20,7 @@ NOTICE ENTrY:
 
 *** Event date not display after entered
 
-After notice submitted, scroll to top to toastr doesn't occur
+*** After notice submitted, scroll to top to toastr doesn't occur
 
 
 EDIT NOTICE

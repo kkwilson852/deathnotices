@@ -208,7 +208,7 @@ export class NoticeEntryComponent {
 
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
     this.noticeEntryService.submitNotice(this.noticeEntryModel);
-    this.noticeForm.resetForm();
+    // this.noticeForm.resetForm();
   }
 
   onPaymentTypeChange(): void {

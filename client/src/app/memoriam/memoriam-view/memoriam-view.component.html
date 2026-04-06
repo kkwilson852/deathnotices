@@ -8,62 +8,31 @@
     </div>
   </section>
 
-  <!-- <section class="">
-    <div class="card shadow-sm border-0">
-      <div class="card-body p-4">
-        <div class="row">
-          <div
-            class="col-12 d-flex flex-column justify-content-center align-items-center"
-          >
-            <img
-              *ngIf="memoriam.imageId"
-              class="img-fluid memoriam-image"
-              [src]="apiUrl + '/image/' + memoriam.imageId"
-              alt="memoriam image"
-              loading="lazy"
-            />
-
-            <h4 class="mt-2">{{ memoriam.name }}</h4>
-            <h6
-              class="text-muted card-subtitle mb-2 text-center"
-              style="font-size: 15px"
-            >
-              {{ memoriam.createdAt | date : "MMMM d, yyyy" }}
-            </h6>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-
-  <!-- IMAGE -->
   <section>
     <div class="card shadow-sm border-0">
-      <div class="card-body p-0 position-relative">
-        <div class="d-flex flex-column align-items-center text-center pt-3">
-          <h4 class="mt-2 mb-1">{{ memoriam.name }}</h4>
+      <!-- HEADER (completely OUTSIDE wreath system) -->
+      <div class="notice-header">
+        <h4 class="mt-2 mb-1">{{ memoriam.name }}</h4>
 
-          <h6 class="mb-0">
-            <span class="text-muted">Tribute: </span>
-            {{ memoriam.createdAt | date : "MMMM d, yyyy" }}
-          </h6>
-        </div>
-        <!-- FRAME IMAGE (real element) -->
+        <h6 class="mb-0">
+          <span class="text-muted">Tribute: </span>
+          {{ memoriam.createdAt | date : "MMMM d, yyyy" }}
+        </h6>
+      </div>
+
+      <!-- FRAME AREA -->
+      <div class="notice-frame">
+        <!-- WREATH -->
         <img src="/assets/img/wreath-frame.png" class="wreath-bg" alt="" />
 
-        <!-- <img src="/assets/img/wreath3.jpg" class="wreath-bg" alt="" /> -->
-
-        <!-- CONTENT -->
-        <div class="content p-4">
-          <div class="row">
-            <div class="col-12 d-flex flex-column align-items-center">
-              <img
-                *ngIf="memoriam.imageId"
-                class="img-fluid notice-image"
-                [src]="apiUrl + '/image/' + memoriam.imageId"
-              />
-            </div>
-          </div>
+        <!-- SAFE CONTENT ZONE -->
+        <div class="content">
+          <img
+            *ngIf="memoriam.imageId"
+            class="notice-image"
+            [src]="apiUrl + '/image/' + memoriam.imageId"
+            alt="Notice image"
+          />
         </div>
       </div>
     </div>
