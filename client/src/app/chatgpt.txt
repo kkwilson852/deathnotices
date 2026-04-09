@@ -1,1 +1,16 @@
-Option 1: produced no change. No borders.
+I have the following call in the component to the service:
+
+this.noticeEntryService.submitNotice(this.noticeEntryModel).subscribe(() => {
+      this.isSubmitting = false;
+    })
+
+In the service, I have the following:
+
+public submitNotice = (noticeEntryModel: NoticeEntryModel) => {
+    return this.httpClient.post(this.apiUrl, fd).subscribe({
+      next: (response) => {
+        console.log('Notice submitted successfully:', response);
+        return;
+      }
+    }
+}

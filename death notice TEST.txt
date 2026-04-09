@@ -2,6 +2,10 @@ TESTING
 
 DEArLY DEPArTED;
 
+needs ellipsis for long names
+
+sort by create date or death date?
+
 change number of item per page
 
 
@@ -22,6 +26,12 @@ images truncated at top
 
 
 NOTICE ENTrY:
+*** add spinner bar when entering notice
+
+add delete notice for admin
+
+when notice submitted in poduction, no email
+
 *** Event's date not displayed completely
 
 *** Event date not display after entered
@@ -30,10 +40,14 @@ NOTICE ENTrY:
 
 
 EDIT NOTICE
+add spinner bar when entering notice
+
 *** Contact name not updating
 
 
 MEMOrIAM VIEW:
 *** textarea not expanded
+
+add spinner bar when entering notice
 
 create skeleton 

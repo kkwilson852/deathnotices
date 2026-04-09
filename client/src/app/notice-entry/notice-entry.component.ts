@@ -28,6 +28,7 @@ export class NoticeEntryComponent {
 
   public noticeEntryModel = inject(NoticeEntryModel);
   private noticeEntryService = inject(NoticeEntryService);
+  private toastrUtils = inject(ToastUtils);;
   @ViewChild('noticeForm') noticeForm!: NgForm;
 
   stripe: Stripe | null = null;
@@ -46,6 +47,8 @@ export class NoticeEntryComponent {
   @ViewChild('groupContainer') groupContainer!: ElementRef;
 
   private persistNoticeSubject = new Subject<void>();
+
+  public isSubmitting = false;
 
   ngOnInit() {
     // this.setUpStripe();
@@ -207,7 +210,32 @@ export class NoticeEntryComponent {
 
 
     console.log('submitNotice.noticeEntryModel:', this.noticeEntryModel);
-    this.noticeEntryService.submitNotice(this.noticeEntryModel);
+    this.isSubmitting = true;
+
+    this.noticeEntryService.submitNotice(this.noticeEntryModel).subscribe({
+      next: (updatedModel) => {
+        this.noticeEntryModel = updatedModel;
+
+        this.toastrUtils.show(
+          'success',
+          'Notice submitted successfully.',
+          'Notice Success'
+        );
+
+        this.isSubmitting = false;
+      },
+      error: (error) => {
+        console.error('Error submitting notice:', error);
+
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while submitting the notice.',
+          'Notice Error'
+        );
+
+        this.isSubmitting = false;
+      }
+    });
     // this.noticeForm.resetForm();
   }
 

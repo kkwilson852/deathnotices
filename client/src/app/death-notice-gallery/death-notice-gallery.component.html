@@ -47,8 +47,8 @@
       </div>
 
       <div class="card-body d-flex justify-content-center flex-column">
-        <h4 class="card-title text-center" style="font-size: 14.7px">
-          <strong>{{ notice.name }}</strong>
+        <h4 class="card-title text-center fw-bold" style="font-size: 14.7px">
+          {{ notice.name | resizeAndEllipsis : 15 }}
         </h4>
         <h6
           class="text-muted card-subtitle mb-2 text-center"

@@ -10,6 +10,7 @@ import { GroupSearchComponent } from '../shared/components/group-search/group-se
 import { PaginationComponent } from '../shared/components/pagination/pagination.component';
 import { YearSearchComponent } from '../shared/components/year-search/year-search.component';
 import { SkeletonCardsComponent } from '../shared/components/skeletons/skeleton-cards/skeleton-cards.component';
+import { ResizeAndEllipsisPipe } from '../shared/pipes/resize-and-ellipsis.pipe';
 @Component({
   selector: 'app-death-notice-gallery',
   standalone: true,
@@ -21,7 +22,8 @@ import { SkeletonCardsComponent } from '../shared/components/skeletons/skeleton-
     GroupSearchComponent,
     YearSearchComponent,
     PaginationComponent,
-    SkeletonCardsComponent
+    SkeletonCardsComponent,
+    ResizeAndEllipsisPipe
   ],
   templateUrl: './death-notice-gallery.component.html',
   styleUrl: './death-notice-gallery.component.scss'
