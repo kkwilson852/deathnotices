@@ -32,6 +32,8 @@ export class EnterMemoriamComponent {
   elements: any;
   clientSecret: string = "";
 
+  public isSubmitting = false;
+
   ngOnInit() {
     // this.setUpStripe();
   }
@@ -103,23 +105,29 @@ export class EnterMemoriamComponent {
   }
 
   private completeMemoriamSubmission = () => {
-    // let d = new Date(this.noticeEntryModel.death_date);
-
-    // // Create a date-only value (no timezone shift)
-    // this.noticeEntryModel.death_date = new Date(
-    //   Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
-    // );
-
-    // d = new Date(this.noticeEntryModel.birth_date);
-
-    // // Create a date-only value (no timezone shift)
-    // this.noticeEntryModel.birth_date = new Date(
-    //   Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
-    // );
-
-
     console.log('submitMemoriam.MemoriamEntryModel:', this.memoriamEntryModel);
-    this.enterMemoriamService.submitMemoriam(this.memoriamEntryModel);
+
+    this.isSubmitting = true;
+    this.enterMemoriamService.submitMemoriam(this.memoriamEntryModel).subscribe({
+      next: (response) => {
+        console.log('Memoriam submitted successfully:', response);
+        this.toastrUtils.show(
+          'success',
+          'Memoriam submitted successfully.',
+          'Memoriam Success'
+        );
+        this.isSubmitting = false;
+      },
+      error: (error) => {
+        console.error('Error submitting memoriam:', error);
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while submitting the memoriam.',
+          'Memoriam Error'
+        );
+        this.isSubmitting = false;
+      }
+    })
   }
 
   public saveMemoriamData = () => {

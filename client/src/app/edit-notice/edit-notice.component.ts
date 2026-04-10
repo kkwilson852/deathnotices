@@ -33,6 +33,7 @@ export class EditNoticeComponent {
   group: Group = { _id: '', name: null };
   newGroup?: string | null;
   @ViewChild('groupContainer') groupContainer!: ElementRef;
+  public isSubmitting = false;
 
   ngOnInit() {
     this.getNotice();
@@ -111,13 +112,18 @@ export class EditNoticeComponent {
       date: event.date_str ? new Date(event.date_str) : null
     }));
 
-    for (let event of this.editNoticeModel.events) {
-      console.log('event.date_str:', event.date_str);
-      console.log('parsed:', new Date(event.date_str));
-    }
+    // for (let event of this.editNoticeModel.events) {
+    //   console.log('event.date_str:', event.date_str);
+    //   console.log('parsed:', new Date(event.date_str));
+    // }
 
     console.log('submitNoticeEdits.editNoticeModel:', this.editNoticeModel);
-    this.editNoticeService.submitNoticeEdits(this.editNoticeModel as EditNoticeModel);
+    this.isSubmitting = true;
+
+    this.editNoticeService.submitNoticeEdits(this.editNoticeModel as EditNoticeModel).subscribe(() => {
+      this.isSubmitting = false;
+    })
+
   }
 
   public toggleEditImageMode = () => {

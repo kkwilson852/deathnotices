@@ -1,5 +1,9 @@
 4242 4242 4242 4242
 
+Can images be stored in mongo in smaller size?
+
+remove console logs
+
 Budget -- chatgpt, github, render, atlas, immg app
 
 make dates in events MMMM d, yyyy

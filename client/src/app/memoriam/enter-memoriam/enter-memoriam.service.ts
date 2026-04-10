@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ToastUtils } from '../../shared/utils/toastUtils';
 import { NoticeEntryModel } from '../../notice-entry/notice-entry.model';
-import { catchError, tap } from 'rxjs';
+import { catchError, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,24 +36,8 @@ export class EnterMemoriamService {
     console.log('FormData being sent:');
     fd.forEach((value, key) => console.log(key, value));
 
-    this.httpClient.post(`${this.apiUrl}/memoriam`, fd).subscribe({
-      next: (response) => {
-        console.log('Memoriam submitted successfully:', response);
-        this.toastrUtils.show(
-          'success',
-          'Memoriam submitted successfully.',
-          'Memoriam Success'
-        );
-      },
-      error: (error) => {
-        console.error('Error submitting memoriam:', error);
-        this.toastrUtils.show(
-          'error',
-          error.message || 'An error occurred while submitting the memoriam.',
-          'Memoriam Error'
-        );
-      }
-    });
+    return this.httpClient.post<any>(`${this.apiUrl}/memoriam`, fd);
+
   }
 
   public createPaymentIntent = (paymentInfo: { amount: number, currency: string }) => {

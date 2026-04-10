@@ -8,6 +8,7 @@ import { NoticeEntryModel } from '../notice-entry/notice-entry.model';
 import { MemoriamViewComponent } from './memoriam-view/memoriam-view.component';
 import { RouterModule } from '@angular/router';
 import { SkeletonCirclesComponent } from '../shared/components/skeletons/skeleton-circles/skeleton-circles.component';
+import { ResizeAndEllipsisPipe } from '../shared/pipes/resize-and-ellipsis.pipe';
 
 @Component({
   selector: 'app-memoriam',
@@ -17,7 +18,8 @@ import { SkeletonCirclesComponent } from '../shared/components/skeletons/skeleto
     RouterModule,
     MemoriamSearchComponent,
     MemoriamViewComponent,
-    SkeletonCirclesComponent
+    SkeletonCirclesComponent,
+    ResizeAndEllipsisPipe
   ],
   templateUrl: './memoriam.component.html',
   styleUrl: './memoriam.component.scss'

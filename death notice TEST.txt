@@ -2,11 +2,11 @@ TESTING
 
 DEArLY DEPArTED;
 
-needs ellipsis for long names
+*** needs ellipsis for long names
 
 sort by create date or death date?
 
-change number of item per page
+change number of item per page in pagination
 
 
 DEATH NOTICE:
@@ -40,14 +40,20 @@ when notice submitted in poduction, no email
 
 
 EDIT NOTICE
-add spinner bar when entering notice
+*** add spinner bar when entering notice
 
 *** Contact name not updating
 
 
 MEMOrIAM VIEW:
+*** truncate name and add ellipsis
+
 *** textarea not expanded
 
-add spinner bar when entering notice
+
+
+MEMOrIAM ENTrY:
+*** add spinner bar when entering notice
 
 create skeleton 
+

@@ -34,7 +34,7 @@
       </div>
       <div class="card-body d-flex justify-content-center flex-column">
         <h4 class="card-title text-center" style="font-size: 14.7px">
-          <strong>{{ memoriam.name }}</strong>
+          <strong>{{ memoriam.name | resizeAndEllipsis : 15 }}</strong>
         </h4>
         <h6
           class="text-muted card-subtitle mb-2 text-center"

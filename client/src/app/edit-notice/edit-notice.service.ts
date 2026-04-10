@@ -74,7 +74,7 @@ export class EditNoticeService {
       console.log('Appending image file to FormData:', editNoticeModel.imageFile);
     }
 
-    this.httpClient.put<EditNoticeModel>(
+    return this.httpClient.put<EditNoticeModel>(
       `${this.noticesUrl}/${editNoticeModel._id}`,
       fd
     ).pipe(
@@ -97,7 +97,7 @@ export class EditNoticeService {
         );
         throw error;
       })
-    ).subscribe();
+    )
   };
 
   public addNewGroup = (group: Group) => {
