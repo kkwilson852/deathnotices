@@ -45,31 +45,31 @@ export class MemoriamEditService {
     console.log('FormData being sent:');
     fd.forEach((value, key) => console.log(key, value));
 
-    this.httpClient
-      .put<NoticeEntryModel>(
-        `${this.apiUrl}/${this.memoriamEntryModel._id}`,
-        fd
-      )
-      .subscribe({
-        next: (memoriam) => {
-          Object.assign(this.memoriamEntryModel, memoriam);
-          this.memoriamEntryModel.editImageMode = false;
-          console.log('Memoriam submitted successfully:', memoriam);
-          this.toastrUtils.show(
-            'success',
-            'Memoriam submitted successfully.',
-            'Memoriam Success'
-          );
-        },
-        error: (error) => {
-          console.error('Error submitting memoriam:', error);
-          this.toastrUtils.show(
-            'error',
-            error.message || 'An error occurred while submitting the memoriam.',
-            'Memoriam Error'
-          );
-        },
-      });
+    return this.httpClient.put<NoticeEntryModel>(
+      `${this.apiUrl}/${this.memoriamEntryModel._id}`,
+      fd
+    ).pipe(
+      tap((memoriam) => {
+        console.log('Edited notice response:', memoriam);
+        Object.assign(this.memoriamEntryModel, memoriam);
+        this.memoriamEntryModel.editImageMode = false;
+        this.toastrUtils.show(
+          'success',
+          'Memoriam submitted successfully.',
+          'Memoriam Success'
+        );
+      }),
+      catchError(error => {
+        console.log('error', error)
+        this.toastrUtils.show(
+          'error',
+          error.message || 'An error occurred while submitting the memoriam.',
+          'Memoriam Error'
+        );
+        throw error;
+      })
+    )
+
   };
 
   getMemoriam = (memoriamId: string) => {

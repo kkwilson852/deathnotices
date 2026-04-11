@@ -112,10 +112,6 @@ export class EditNoticeComponent {
       date: event.date_str ? new Date(event.date_str) : null
     }));
 
-    // for (let event of this.editNoticeModel.events) {
-    //   console.log('event.date_str:', event.date_str);
-    //   console.log('parsed:', new Date(event.date_str));
-    // }
 
     console.log('submitNoticeEdits.editNoticeModel:', this.editNoticeModel);
     this.isSubmitting = true;

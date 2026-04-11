@@ -24,10 +24,16 @@ export class MemoriamEditComponent {
   private toastrUtils = inject(ToastUtils);
   public operation = 'edit-memoriam';
   public apiUrl = '/api/memoriams';
+  public isSubmitting = false;
 
   public submitMemoriam = async () => {
     console.log('submitMemoriam.memoriamEntryModel:', this.memoriamEntryModel);
-    this.memoriamEditService.submitMemoriam();
+
+    this.isSubmitting = true;
+    this.memoriamEditService.submitMemoriam().subscribe(() => {
+      this.isSubmitting = false;
+
+    })
   }
 
   public saveMemoriamData = () => {

@@ -57,3 +57,10 @@ MEMOrIAM ENTrY:
 
 create skeleton 
 
+MEMOIAM EDIT:
+3256-2827-6316
+
+*** image too large
+
+*** add spinner
+
