@@ -13,7 +13,6 @@ export class MemoriamEditService {
   private router = inject(Router);
   public memoriamEntryModel = inject(NoticeEntryModel);
 
-  // private apiUrl = '/api/notices';
   private apiUrl = '/api/memoriams';
   private httpClient = inject(HttpClient);
   private toastrUtils = inject(ToastUtils);

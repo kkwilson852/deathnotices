@@ -4,7 +4,7 @@ DEArLY DEPArTED;
 
 *** needs ellipsis for long names
 
-sort by create date or death date?
+*** sort by create date or death date?
 
 change number of item per page in pagination
 
