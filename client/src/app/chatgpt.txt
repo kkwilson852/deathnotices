@@ -1,16 +1,45 @@
-I have the following call in the component to the service:
+Twilio/Sendgrid provided an SID and a secret. i have used the SID in the following code; where
+should the secret be used. is this the right configuration for Twilio. 
 
-this.noticeEntryService.submitNotice(this.noticeEntryModel).subscribe(() => {
-      this.isSubmitting = false;
-    })
 
-In the service, I have the following:
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
 
-public submitNotice = (noticeEntryModel: NoticeEntryModel) => {
-    return this.httpClient.post(this.apiUrl, fd).subscribe({
-      next: (response) => {
-        console.log('Notice submitted successfully:', response);
-        return;
-      }
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key: process.env.TWILIO_SENDGRID_API_SID,
+    },
+  })
+);
+
+async function sendEmail(mailOptions) {
+
+
+  await transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error("Error sending email:", err);
+      // throw err;
+    } else {
+      console.log("Email sent: " + info.response);
     }
+  });
 }
+
+module.exports = { sendEmail };
+
+
+i am getting the following error;
+
+::ffff:127.0.0.1 - - [14/Apr/2026:15:57:19 +0000] "POST /api/notices HTTP/1.1" 201 1681
+Error sending email: Error: The provided authorization grant is invalid, expired, or revoked
+    at Request._callback (/angular/death_announcements/server/node_modules/sendgrid/lib/sendgrid.js:88:25)
+    at self.callback (/angular/death_announcements/server/node_modules/request/request.js:185:22)
+    at Request.emit (node:events:524:28)
+    at Request.<anonymous> (/angular/death_announcements/server/node_modules/request/request.js:1154:10)
+    at Request.emit (node:events:524:28)
+    at IncomingMessage.<anonymous> (/angular/death_announcements/server/node_modules/request/request.js:1076:12)
+    at Object.onceWrapper (node:events:638:28)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)

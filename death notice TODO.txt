@@ -4,7 +4,7 @@ Can images be stored in mongo in smaller size?
 
 remove console logs
 
-Budget -- chatgpt, github, render, atlas, immg app
+Budget -- chatgpt, github, render, atlas, mail, immg app loan
 
 make dates in events MMMM d, yyyy
 

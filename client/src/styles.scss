@@ -241,3 +241,31 @@ input, select, textarea {
     width: 31%;
   }
 }
+
+
+//Accordion
+.accordion-button {
+  .see-less {
+    display: none;
+  }
+
+  &:not(.collapsed) {
+    .see-more {
+      display: none;
+    }
+
+    .see-less {
+      display: inline;
+    }
+  }
+
+  &.collapsed {
+    .see-more {
+      display: inline;
+    }
+
+    .see-less {
+      display: none;
+    }
+  }
+}

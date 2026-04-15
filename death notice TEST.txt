@@ -26,11 +26,17 @@ images truncated at top
 
 
 NOTICE ENTrY:
+validate buyer's email 
+
 *** add spinner bar when entering notice
 
 add delete notice for admin
 
 when notice submitted in poduction, no email
+
+substitute render
+
+see more, see less
 
 *** Event's date not displayed completely
 
@@ -40,6 +46,8 @@ when notice submitted in poduction, no email
 
 
 EDIT NOTICE
+change buyer's email
+
 *** add spinner bar when entering notice
 
 *** Contact name not updating

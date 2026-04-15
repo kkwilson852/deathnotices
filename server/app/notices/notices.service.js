@@ -389,8 +389,10 @@ const sendConfirmationEmail = (noticeData) => {
     return;
   }
 
+
   const mailOptions = {
-    from: `Liberian Death Notice <kkwilson852@gmail.com>`,
+    // from: `Liberian Death Notice <kkwilson852@gmail.com>`,
+    from: process.env.EMAIL_FROM,
     to: `${noticeData.email}`,
     subject: `Your notice No. ${noticeData.notice_no}`,
 
