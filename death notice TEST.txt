@@ -1,5 +1,7 @@
 TESTING
 
+change buyer's email
+
 DEArLY DEPArTED;
 
 *** needs ellipsis for long names
@@ -26,17 +28,17 @@ images truncated at top
 
 
 NOTICE ENTrY:
-validate buyer's email 
+*** validate buyer's email 
 
 *** add spinner bar when entering notice
 
 add delete notice for admin
 
-when notice submitted in poduction, no email
+*** when notice submitted in poduction, no email
 
 substitute render
 
-see more, see less
+*** see more, see less
 
 *** Event's date not displayed completely
 

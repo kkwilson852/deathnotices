@@ -1,45 +1,110 @@
-Twilio/Sendgrid provided an SID and a secret. i have used the SID in the following code; where
-should the secret be used. is this the right configuration for Twilio. 
+<div class="card shadow-sm border-0 mb-4">
+      <div class="card-body p-4">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <!-- Section Title -->
+            <div class="mb-3">
+              <h5 class="section-title mb-0">Personal Information</h5>
+            </div>
 
+            <!-- Desktop Header Row (like Contact section) -->
+            <div class="row d-none d-md-flex mb-2">
+              <div class="col-md-6">
+                <label class="fw-bold">
+                  Your Name <span class="text-danger">*</span>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label class="fw-bold">
+                  Your Email <span class="text-danger">*</span>
+                </label>
+              </div>
+            </div>
 
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+            <!-- Inputs Row -->
+            <div class="row">
+              <!-- Name -->
+              <div class="col-12 col-lg-6 mb-3">
+                <label class="d-md-none fw-bold">
+                  Your Name <span class="text-danger">*</span>
+                </label>
 
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key: process.env.TWILIO_SENDGRID_API_SID,
-    },
-  })
-);
+                <input
+                  class="form-control"
+                  [(ngModel)]="noticeEntryModel.buyer_name"
+                  name="buyer_name"
+                  type="text"
+                  required
+                  #buyer_name="ngModel"
+                  (change)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid':
+                      buyer_name.valid &&
+                      (buyer_name.dirty || buyer_name.touched),
+                    'is-invalid':
+                      buyer_name.invalid &&
+                      (buyer_name.dirty || buyer_name.touched)
+                  }"
+                />
 
-async function sendEmail(mailOptions) {
+                <div
+                  *ngIf="
+                    buyer_name.invalid &&
+                    (buyer_name.dirty || buyer_name.touched)
+                  "
+                  class="text-danger mt-1"
+                >
+                  <small>Name is required.</small>
+                </div>
+              </div>
 
+              <!-- Email -->
+              <div class="col-12 col-lg-6 mb-3">
+                <label class="d-md-none fw-bold">
+                  Your Email <span class="text-danger">*</span>
+                </label>
 
-  await transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      console.error("Error sending email:", err);
-      // throw err;
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-}
+                <input
+                  class="form-control"
+                  [(ngModel)]="noticeEntryModel.email"
+                  name="buyer_email"
+                  type="email"
+                  required
+                  pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+                  #buyer_email="ngModel"
+                  (ngModelChange)="saveNoticeData()"
+                  [ngClass]="{
+                    'is-valid':
+                      buyer_email.valid &&
+                      (buyer_email.dirty || buyer_email.touched),
+                    'is-invalid':
+                      buyer_email.invalid &&
+                      (buyer_email.dirty || buyer_email.touched)
+                  }"
+                />
 
-module.exports = { sendEmail };
+                <div
+                  *ngIf="
+                    buyer_email.invalid &&
+                    (buyer_email.dirty || buyer_email.touched)
+                  "
+                  class="text-danger mt-1"
+                >
+                  <small *ngIf="buyer_email.errors?.['required']">
+                    Email is required.
+                  </small>
 
+                  <small *ngIf="buyer_email.errors?.['email']">
+                    Please enter a valid email address.
+                  </small>
 
-i am getting the following error;
-
-::ffff:127.0.0.1 - - [14/Apr/2026:15:57:19 +0000] "POST /api/notices HTTP/1.1" 201 1681
-Error sending email: Error: The provided authorization grant is invalid, expired, or revoked
-    at Request._callback (/angular/death_announcements/server/node_modules/sendgrid/lib/sendgrid.js:88:25)
-    at self.callback (/angular/death_announcements/server/node_modules/request/request.js:185:22)
-    at Request.emit (node:events:524:28)
-    at Request.<anonymous> (/angular/death_announcements/server/node_modules/request/request.js:1154:10)
-    at Request.emit (node:events:524:28)
-    at IncomingMessage.<anonymous> (/angular/death_announcements/server/node_modules/request/request.js:1076:12)
-    at Object.onceWrapper (node:events:638:28)
-    at IncomingMessage.emit (node:events:536:35)
-    at endReadableNT (node:internal/streams/readable:1698:12)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+                  <small *ngIf="buyer_email.errors?.['pattern']">
+                    Email format is invalid.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

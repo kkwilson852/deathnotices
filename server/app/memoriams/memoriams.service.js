@@ -291,7 +291,7 @@ const sendConfirmationEmail = (memoriamData) => {
   }
 
   const mailOptions = {
-    from: `Libeian Death Announcement <kkwilson852@gmail.com>`,
+    from: process.env.EMAIL_FROM,
     to: `${memoriamData.email}`,
     subject: `Your memoriam No. ${memoriamData.memoriam_no}`,
 
